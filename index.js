@@ -5,18 +5,19 @@ const express   = require("express"),
       passport  = require("passport"),
       mongo     = require("mongodb");
 
-const router       = express.Router()
+      const router       = express.Router()
       ,initPassport = require("./passportconfig.js")
-    //   ,initRouter   = require("./routes.js")
+      //   ,initRouter   = require("./routes.js")
       ;
-
-
-
-var database, userCollection;
-const MONGO_CONNECTION = process.env.MONGO;
-
-
-const app = express();
+      
+      
+      
+      
+      var database, userCollection;
+      const MONGO_CONNECTION = process.env.MONGO;
+      
+      
+      const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(
     session({
@@ -26,13 +27,16 @@ app.use(
     })
 );
 
+// app.use(express.static('src'));
+
+// app.get('/', (req, res)=>{
+//     res.sendFile(__dirname + '/public/index.html');
+// });
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(router);
-
-
-
 
 app.post("/register", async (req, res) => {
     try {

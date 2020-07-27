@@ -39,7 +39,7 @@ class RegisterModal extends Component {
 				<Modal isOpen={this.state.isModalOpen} toggle={toggleModal}>
 					<ModalHeader toggle={toggleModal}>Register</ModalHeader>
 					<ModalBody>
-						<form
+						<LocalForm
 							onSubmit={(values) => this.submitComment(values)}
 						>
 							<Row class="form-group">
@@ -102,7 +102,7 @@ class RegisterModal extends Component {
 							<Button type="submit" color="primary" className="mt-2">
 								Login
 							</Button>
-						</form>
+						</LocalForm>
 					</ModalBody>
 				</Modal>
 			</>
