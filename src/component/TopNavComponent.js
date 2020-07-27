@@ -12,6 +12,7 @@ import {
 } from 'reactstrap'
 import SearchModal from './SearchModalComponent'
 import LoginModal from './LoginModal'
+import RegisterModal from './RegisterModal'
 import { DRINKS } from '../shared/drinks'
 
 class TopNav extends Component {
@@ -73,6 +74,9 @@ class TopNav extends Component {
 							</Col>
 							<Col>
 								<LoginModal />
+							</Col>
+							<Col>
+								<RegisterModal />
 							</Col>
 						</Row>
 					</Collapse>
