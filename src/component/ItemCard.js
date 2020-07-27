@@ -12,6 +12,13 @@ import {
 function RenderItemCard({ name, image, description, category }) {
 	return (
 		<Card className="item-card text-center">
+			<div
+				type="submit"
+				color="light"
+				className="favorite-icon"
+			>
+				<i className="fa fa-star-o"></i>
+			</div>
 			<Link to={`/drink/${name}`}>
 				<CardImg
 					className="item-card-image"
@@ -30,8 +37,8 @@ function RenderItemCard({ name, image, description, category }) {
 				</CardText>
 				
 				<CardText className="item-card-category">
-				<Link to={`/category/${category}`} className="category-link">
-					{category}
+					<Link to={`/category/${category}`} className="category-link">
+						{category}
 					</Link>
 				</CardText>
 			</CardBody>

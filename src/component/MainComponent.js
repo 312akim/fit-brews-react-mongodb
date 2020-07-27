@@ -7,6 +7,7 @@ import CategoryList from './CategoryListComponent'
 import CategoryItems from './CategoryItemsComponent'
 import ItemComponent from './ItemComponent'
 import Footer from './Footer'
+import StoreItemComponent from './StoreItemComponent';
 
 class Main extends Component {
 	constructor(props) {
@@ -61,6 +62,12 @@ class Main extends Component {
 			)
 		}
 
+		const StorePage = () => {
+			return (
+				<StoreItemComponent/>
+			)
+		}
+
 		return (
 			<div className="wrapper">
 				<TopNav drinks={this.state.drinks}/>
@@ -77,9 +84,14 @@ class Main extends Component {
 						)}
 					/>
 					<Route
-					exact
+						exact
 						path="/category/:drink_category"
 						component={CategoryWithItems}
+					/>
+					<Route
+						exact
+						path="/store"
+						component={StorePage}
 					/>
 					<Route path="/drink/:drink_name" component={DrinkItem} />
 					<Redirect to="/home" />
