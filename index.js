@@ -50,28 +50,28 @@ app.post("/register", async (req, res) => {
     console.log(req.body);
 
 
-    // try {
-    //     userCollection.find({$or:[{username:req.body.username},{email:req.body.email}]}).toArray(async (err,resdb)=>{
-    //         if(resdb.length === 0){
-    //             const hashedPassword = await bcrypt.hash(req.body.password.trim(), 10);
+    try {
+        userCollection.find({$or:[{username:req.body.username},{email:req.body.email}]}).toArray(async (err,resdb)=>{
+            if(resdb.length === 0){
+                const hashedPassword = await bcrypt.hash(req.body.password.trim(), 10);
 
-    //             const newUser = {username: req.body.username.trim(),
-    //                              password: hashedPassword,
-    //                              email:    req.body.email.trim()};
+                const newUser = {username: req.body.username.trim(),
+                                 password: hashedPassword,
+                                 email:    req.body.email.trim()};
 
-    //             userCollection.insertOne(newUser, (err_addUser, res_addUser) =>{
-    //                 if (err_addUser) throw err_addUser;
+                userCollection.insertOne(newUser, (err_addUser, res_addUser) =>{
+                    if (err_addUser) throw err_addUser;
 
-    //                 console.log("New user added to db...");
-    //                 console.log(res_addUser.ops);
-    //                 return res.redirect("/login");
-    //             });
-    //         }
-    //         else return res.status(409).send({Error:"Username or email already in use"});//409:Conflict
-    //     });
-    // } catch {
-    //     res.redirect("/register");
-    // }
+                    console.log("New user added to db...");
+                    console.log(res_addUser.ops);
+                    return res.redirect("/login");
+                });
+            }
+            else return res.status(409).send({Error:"Username or email already in use"});//409:Conflict
+        });
+    } catch {
+        res.redirect("/register");
+    }
 });
 
 

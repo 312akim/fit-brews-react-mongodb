@@ -26,8 +26,9 @@ class RegisterModal extends Component {
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ title: 'React POST Request Example' })
+			body: JSON.stringify(values)
 		};
+
 		fetch('http://localhost:5000/register', requestOptions)
 			.then(async response => {
 				const data = await response.json();
