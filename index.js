@@ -1,4 +1,5 @@
-const cors = require('./cors');
+// const cors = require('./cors');
+const cors      = require('cors');
 const express   = require("express"),
       session   = require("express-session"),
       dotenv    = require("dotenv").config(),
@@ -14,11 +15,20 @@ const express   = require("express"),
       
       
       
-      var database, userCollection;
-      const MONGO_CONNECTION = process.env.MONGO;
+var database, userCollection;
+const MONGO_CONNECTION = process.env.MONGO;
       
       
-      const app = express();
+const app = express();
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200 
+  }
+
+  app.use(cors(corsOptions));
+
+
 app.use(express.urlencoded({ extended: false }));
 app.use(
     session({
@@ -28,42 +38,40 @@ app.use(
     })
 );
 
-// app.use(express.static('src'));
-
-// app.get('/', (req, res)=>{
-//     res.sendFile(__dirname + '/public/index.html');
-// });
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(router);
 
-app.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-.post("/register", cors.cors, async (req, res) => {
+app.post("/register", async (req, res) => {
+
     console.log("helloooo");
-    try {
-        userCollection.find({$or:[{username:req.body.username},{email:req.body.email}]}).toArray(async (err,resdb)=>{
-            if(resdb.length === 0){
-                const hashedPassword = await bcrypt.hash(req.body.password.trim(), 10);
 
-                const newUser = {username: req.body.username.trim(),
-                                 password: hashedPassword,
-                                 email:    req.body.email.trim()};
+    console.log(req.body);
 
-                userCollection.insertOne(newUser, (err_addUser, res_addUser) =>{
-                    if (err_addUser) throw err_addUser;
 
-                    console.log("New user added to db...");
-                    console.log(res_addUser.ops);
-                    return res.redirect("/login");
-                });
-            }
-            else return res.status(409).send({Error:"Username or email already in use"});//409:Conflict
-        });
-    } catch {
-        res.redirect("/register");
-    }
+    // try {
+    //     userCollection.find({$or:[{username:req.body.username},{email:req.body.email}]}).toArray(async (err,resdb)=>{
+    //         if(resdb.length === 0){
+    //             const hashedPassword = await bcrypt.hash(req.body.password.trim(), 10);
+
+    //             const newUser = {username: req.body.username.trim(),
+    //                              password: hashedPassword,
+    //                              email:    req.body.email.trim()};
+
+    //             userCollection.insertOne(newUser, (err_addUser, res_addUser) =>{
+    //                 if (err_addUser) throw err_addUser;
+
+    //                 console.log("New user added to db...");
+    //                 console.log(res_addUser.ops);
+    //                 return res.redirect("/login");
+    //             });
+    //         }
+    //         else return res.status(409).send({Error:"Username or email already in use"});//409:Conflict
+    //     });
+    // } catch {
+    //     res.redirect("/register");
+    // }
 });
 
 
