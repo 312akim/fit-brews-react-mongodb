@@ -1,3 +1,4 @@
+const cors = require('./cors');
 const express   = require("express"),
       session   = require("express-session"),
       dotenv    = require("dotenv").config(),
@@ -38,7 +39,9 @@ app.use(passport.session());
 app.use(express.json());
 app.use(router);
 
-app.post("/register", async (req, res) => {
+app.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.post("/register", cors.cors, async (req, res) => {
+    console.log("helloooo");
     try {
         userCollection.find({$or:[{username:req.body.username},{email:req.body.email}]}).toArray(async (err,resdb)=>{
             if(resdb.length === 0){

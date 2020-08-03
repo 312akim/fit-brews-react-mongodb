@@ -40,7 +40,7 @@ class LoginModal extends Component {
 					<ModalHeader toggle={toggleModal}>Login</ModalHeader>
 					<ModalBody>
 						<LocalForm
-							onSubmit={(values) => this.submitComment(values)}
+							onSubmit={(values) => this.handleSubmit(values)}
 						>
 							<Row class="form-group">
 								<Col>

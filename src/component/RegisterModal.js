@@ -23,7 +23,28 @@ class RegisterModal extends Component {
 	}
 
 	handleSubmit = (values) => {
-		alert('Current state is: ' + JSON.stringify(values))
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ title: 'React POST Request Example' })
+		};
+		fetch('http://localhost:5000/register', requestOptions)
+			.then(async response => {
+				const data = await response.json();
+	
+				// check for error response
+				if (!response.ok) {
+					// get error message from body or default to response status
+					const error = (data && data.message) || response.status;
+					return Promise.reject(error);
+				}
+	
+				console.log("Success hit");
+			})
+			.catch(error => {
+				this.setState({ errorMessage: error.toString() });
+				console.error('There was an error!', error);
+			});
 	}
 
 	render() {
@@ -40,7 +61,7 @@ class RegisterModal extends Component {
 					<ModalHeader toggle={toggleModal}>Register</ModalHeader>
 					<ModalBody>
 						<LocalForm
-							onSubmit={(values) => this.submitComment(values)}
+							onSubmit={(values) => this.handleSubmit(values)}
 						>
 							<Row class="form-group">
 								<Col>
@@ -93,14 +114,14 @@ class RegisterModal extends Component {
 										placeholder="Password"
 										validators={{
 											required,
-											minLength: minLength(6),
+											minLength: minLength(2),
 											maxLength: maxLength(15),
 										}}
 									/>
 								</Col>
 							</Row>
 							<Button type="submit" color="primary" className="mt-2">
-								Login
+								Register
 							</Button>
 						</LocalForm>
 					</ModalBody>

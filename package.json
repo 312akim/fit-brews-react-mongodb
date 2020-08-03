@@ -9,6 +9,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.4.1",
     "bootstrap-social": "^5.1.1",
+    "cors": "^2.8.5",
     "express-session": "^1.17.1",
     "font-awesome": "^4.7.0",
     "mongodb": "^3.5.9",
@@ -30,6 +31,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
