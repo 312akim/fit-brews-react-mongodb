@@ -80,10 +80,14 @@ app.post("/register", async (req, res) => {
 app.post(
     "/login",
     checkNotAuthenticated,
-    passport.authenticate("local", {
-        successRedirect: "/loggedpage",
-        failureRedirect: "/failPage"
-    })
+    passport.authenticate("local"
+    // , {
+    //     successRedirect: "/loggedpage",
+    //     failureRedirect: "/failPage"
+    // }
+    ), function(req,res){
+        res.sendStatus(200);
+    }
 );
 
 

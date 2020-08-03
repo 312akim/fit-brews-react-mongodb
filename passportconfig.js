@@ -13,6 +13,7 @@ function init(passport, userCollection){
             if (user == null) return done(null, false, {message: 'No user found'});
             try {
                 if (await bcrypt.compare(password,user.password)){
+                    console.log("Login Success");
                     return done(null, user);
                 }
                 else{

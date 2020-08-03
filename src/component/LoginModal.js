@@ -23,7 +23,36 @@ class LoginModal extends Component {
 	}
 
 	handleSubmit = (values) => {
-		alert('Current state is: ' + JSON.stringify(values))
+
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(values)
+		};
+
+		console.log(values);
+		// alert('Current state is: ' + JSON.stringify(values))
+		fetch('http://localhost:5000/login', requestOptions)
+			.then(async response => {
+
+				// const data = await response.json();
+				const data = await response;
+	
+				// check for error response
+				if (!response.ok) {
+					console.log("Failed to login");
+					// get error message from body or default to response status
+					const error = (data && data.message) || response.status;
+					return Promise.reject(error);
+				}
+	
+				console.log("Success hit. Logged in!");
+			})
+			.catch(error => {
+				this.setState({ errorMessage: error.toString() });
+				console.error('There was an error!', error);
+			});
+
 	}
 
 	render() {
@@ -44,24 +73,24 @@ class LoginModal extends Component {
 						>
 							<Row class="form-group">
 								<Col>
-									<Label htmlFor="email">
-										Your Email Address
+									<Label htmlFor="username">
+										Your Username
 									</Label>
 									<Control.text
-										model=".email"
-										name="email"
-										id="email"
+										model=".username"
+										name="username"
+										id="username"
 										className="form-control"
-										placeholder="Email Address"
+										placeholder="Username"
 										validators={{
 											required,
-											minLength: minLength(2),
-											maxLength: maxLength(15),
+											minLength: minLength(0),
+											maxLength: maxLength(100),
 										}}
 									/>
 									<Errors
 										className="text-danger"
-										model=".email"
+										model=".username"
 										show="touched"
 										components="div"
 										messages={{
@@ -87,8 +116,8 @@ class LoginModal extends Component {
 										placeholder="Password"
 										validators={{
 											required,
-											minLength: minLength(6),
-											maxLength: maxLength(15),
+											minLength: minLength(1),
+											maxLength: maxLength(100),
 										}}
 									/>
 									<Errors
