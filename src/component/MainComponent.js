@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { DRINKS } from '../shared/drinks'
-import TopNav from './TopNavComponent';
+import { FAVORITES } from '../shared/favorites'
+import TopNav from './TopNavComponent'
 import HomePage from './HomeComponent'
 import CategoryList from './CategoryListComponent'
 import CategoryItems from './CategoryItemsComponent'
 import ItemComponent from './ItemComponent'
+import FavoritePage from './FavoritePageComponent'
 import Footer from './Footer'
-import StoreItemComponent from './StoreItemComponent';
+import StoreItemComponent from './StoreItemComponent'
 
 class Main extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			drinks: DRINKS,
+			favorites: FAVORITES
 		}
 	}
 
@@ -68,6 +71,12 @@ class Main extends Component {
 			)
 		}
 
+		const Favorites = () => {
+			return (
+				<FavoritePage favorites={this.state.favorites} />
+			)
+		}
+
 		return (
 			<div className="wrapper">
 				<TopNav drinks={this.state.drinks}/>
@@ -94,6 +103,11 @@ class Main extends Component {
 						component={StorePage}
 					/>
 					<Route path="/drink/:drink_name" component={DrinkItem} />
+					<Route
+						exact
+						path="/favorite"
+						component={Favorites}
+					/>
 					<Redirect to="/home" />
 				</Switch>
 				<Footer />

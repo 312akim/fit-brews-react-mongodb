@@ -67,6 +67,11 @@ class TopNav extends Component {
 									Store
 								</NavLink>
 							</NavItem>
+							<NavItem>
+								<NavLink href="/favorite">
+									My Favorite
+								</NavLink>
+							</NavItem>
 						</Nav>
 						<Row className="w-50 pb-3 mx-auto mx-md-0">
 							<Col >
