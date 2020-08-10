@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
 	Card,
@@ -10,6 +10,21 @@ import {
 } from 'reactstrap'
 
 function RenderItemCard({ name, image, description, category }) {
+	const [favorite, setFavorite] = useState(false);
+
+	const favoriteHandler = () => {
+		setFavorite(!favorite)
+		console.log(favorite);
+	}
+
+	//Toggles Favorite Icon
+	let faveIcon = <div></div>
+	if (favorite) {
+		faveIcon = <i className="fa fa-star" onClick={favoriteHandler}></i>
+	} else {
+		faveIcon = <i className="fa fa-star-o" onClick={favoriteHandler}></i>
+	}
+
 	return (
 		<Card className="item-card text-center">
 			<div
@@ -17,7 +32,7 @@ function RenderItemCard({ name, image, description, category }) {
 				color="light"
 				className="favorite-icon"
 			>
-				<i className="fa fa-star-o"></i>
+			{faveIcon}
 			</div>
 			<Link to={`/drink/${name}`}>
 				<CardImg

@@ -3,10 +3,10 @@ import RenderItemCard from './ItemCard';
 import { Col } from 'reactstrap'
 
 //Favorites Map does not currently work.
-
-const FavoritePage = ({favorites}) => {
+const FavoritePage = (props) => {
+    console.log(props.favorites);
     const favoritesMap = () => {
-        favorites.map((drink) => {
+        props.favorites.map((drink) => {
             return (
                 <Col key={drink.id}>
                     <RenderItemCard
